@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "eslint": "^9.37.0"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
   }
+  
 }
