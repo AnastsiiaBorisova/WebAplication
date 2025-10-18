@@ -1,7 +1,11 @@
+import axios, { AxiosResponse } from 'axios';
+
 interface UserProps {
+  id?: number;
   name?: string;
   age?: number;
 }
+
 type Callback = () => void;
 
 export class User {
@@ -20,6 +24,7 @@ export class User {
     handlers.push(callback);
     this.events[eventName] = handlers;
   }
+
   trigger(eventName: string): void {
     const handlers = this.events[eventName];
     if (!handlers || handlers.length === 0) {
@@ -28,5 +33,13 @@ export class User {
     handlers.forEach((callback) => {
       callback();
     });
+  }
+  
+  fetch(): void {
+    axios
+      .get(`http://localhost:3000/users/${this.get('id')}`)
+      .then((response: AxiosResponse): void => {
+        this.set(response.data);
+      });
   }
 }
